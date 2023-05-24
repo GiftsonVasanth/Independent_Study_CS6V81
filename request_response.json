@@ -1,0 +1,454 @@
+--Going through each and everything
+
+
+/*Completion Endpoint - Definition*/
+
+ This endpoint generates text based on a prompt provided by the user. Developers can specify the maximum length of the generated text, the sampling method, and other parameters to customize the output.
+
+
+---------------------------------------------------------------------
+/*Example 1 */
+
+
+Request:
+
+
+curl https://api.openai.com/v1/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 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" \
+  -d '{
+    "model": "text-davinci-003",
+    "prompt": "How are you? What are the various responses one can give?",
+    "max_tokens": 7,
+    "temperature": 0
+  }'
+
+Response:
+
+{
+    "id": "cmpl-74ti8kIkI5RcVDJCTS78j3fM3Lj1j",
+    "object": "text_completion",
+    "created": 1681401820,
+    "model": "text-davinci-003",
+    "choices": [
+        {
+            "text": "\n\nOne can respond to the",
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "length"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 13,
+        "completion_tokens": 7,
+        "total_tokens": 20
+    }
+}
+
+---------------------------------------------------------------------------------
+
+We need to understand the parameters here, to customize the output:
+
+1. API Token - We have received from the openAI.
+
+2. Model:
+
+   https://platform.openai.com/docs/models
+
+   API:
+
+   Request:
+
+    curl https://api.openai.com/v1/models \
+    -H "Authorization: Bearer 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"
+
+    Response:
+
+3. prompt: (Question)
+
+4. max_tokens:
+
+   (Let's see example)
+
+
+   ----------------------------------------------------------------------------
+
+     Request:
+
+
+    curl https://api.openai.com/v1/completions \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer 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" \
+    -d '{
+      "model": "text-davinci-003",
+      "prompt": "How are you? What are the various responses one can give?",
+      "max_tokens": 100,
+      "temperature": 0
+    }'
+
+
+      Response:
+
+      {
+          "id": "cmpl-74tir3OAXawv78EHZyWK9l31huo4w",
+          "object": "text_completion",
+          "created": 1681401865,
+          "model": "text-davinci-003",
+          "choices": [
+              {
+                  "text": "\n\nOne can respond to the question \"How are you?\" in a variety of ways, depending on the context and the person's mood. Some possible responses include:\n\n-I'm doing well, thank you.\n-I'm doing okay.\n-I'm feeling great!\n-I'm doing all right.\n-Not too bad.\n-I'm doing alright.\n-I'm doing okay, how about you?\n-I'm doing pretty good.\n",
+                  "index": 0,
+                  "logprobs": null,
+                  "finish_reason": "length"
+              }
+          ],
+          "usage": {
+              "prompt_tokens": 13,
+              "completion_tokens": 100,
+              "total_tokens": 113
+          }
+      }
+
+      -------------------------------------------------------------------------
+
+      About tokens:
+
+        https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them
+
+        https://platform.openai.com/tokenizer
+
+
+      <<Explanation about the response tokens can be given here>>
+
+
+  5. Temperature/ n 
+
+
+    Request:
+
+
+  curl https://api.openai.com/v1/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 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" \
+  -d '{
+    "model": "text-davinci-003",
+    "prompt": "About Firewall",
+    "max_tokens": 100,
+    "temperature": 1,
+    "n": 2
+  }'
+
+
+  Response:
+
+  {
+    "id": "cmpl-74ttPlTw9uRzoi7UfrKGtJb2CGFKs",
+    "object": "text_completion",
+    "created": 1681402519,
+    "model": "text-davinci-003",
+    "choices": [
+        {
+            "text": "\n\nA firewall is a network security device that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It usually resides between a trusted network and an untrusted network, such as the internet. Firewalls often perform basic packet filtering, looking at source, destination, port and protocol information to decide which traffic is allowed through, and which traffic is blocked. Firewalls are typically the first line of defense in protecting a network from external threats.",
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop"
+        },
+        {
+            "text": "\n\nA firewall is a software or hardware system designed to protect a computer network from unauthorized access. Firewalls are typically configured to reject or deny access to certain types of data and/or traffic, based on either certain predefined security rules or access control lists (ACLs). Firewalls are often used to protect networks from malicious code, viruses, worms, and other unwanted network traffic. Firewalls can also be used to restrict access to specific computers and services, as well as",
+            "index": 1,
+            "logprobs": null,
+            "finish_reason": "length"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 3,
+        "completion_tokens": 194,
+        "total_tokens": 197
+    }
+}
+
+
+ 
+
+ Request:
+
+ curl https://api.openai.com/v1/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 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" \
+  -d '{
+    "model": "text-davinci-003",
+    "prompt": "About Firewall",
+    "max_tokens": 100,
+    "temperature": 0.2,
+    "n": 2
+  }'
+ 
+
+ Response:
+
+
+{
+    "id": "cmpl-74tuskrgze0xUptasqFCsKzFxExa9",
+    "object": "text_completion",
+    "created": 1681402610,
+    "model": "text-davinci-003",
+    "choices": [
+        {
+            "text": "\n\nA firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. Firewalls are often categorized as either network firewalls or host-based firewalls. Network firewalls filter traffic between two or more networks and run on network hardware. Host-based firewalls provide a layer of software on one host that controls network traffic in and out of that single machine. Firewalls are frequently used to prevent unauthorized access to a network",
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "length"
+        },
+        {
+            "text": "\n\nA firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. Firewalls are typically configured to reject access from unauthorized networks and to permit access to authorized networks. Firewalls can be implemented as hardware, software, or a combination of both.",
+            "index": 1,
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 3,
+        "completion_tokens": 161,
+        "total_tokens": 164
+    }
+}
+
+
+---------------------------------------------------------------------------------
+            <<End of today>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+API :
+
+
+curl https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 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" \
+  -d '{
+     "model": "gpt-3.5-turbo",
+     "messages": [{"role": "user", "content": "Say this is a test!"}],
+     "temperature": 0.7
+   }'
+
+
+
+Try with n = 2,
+
+
+curl https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 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" \
+  -d '{
+     "model": "gpt-3.5-turbo",
+     "messages": [{"role": "user", "content": "Say this is a test!"}],
+     "temperature": 0.7,
+     "n": 2
+   }'
+
+
+   ----List of models:
+
+   curl https://api.openai.com/v1/models \
+  -H "Authorization: Bearer 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"
+
+
+
+
+
+
+
+
+
+curl https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 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" \
+  -d '{
+     "model": "gpt-3.5-turbo",
+     "messages": [{"role": "user", "content": "How are you? What are the various responses one can give? "}],
+     "temperature": 0.7,
+     "n": 2
+   }'
+-----------------------------------------------------------
+
+
+
+
+Request:
+
+
+curl https://api.openai.com/v1/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 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" \
+  -d '{
+    "model": "gpt-3.5-turbo",
+    "prompt": "How are you? What are the various responses one can give?",
+    "max_tokens": 7,
+    "temperature": 0
+  }'
+
+
+Response:
+
+
+{
+  "error": {
+    "message": "This is a chat model and not supported in the v1/completions endpoint. Did you mean to use v1/chat/completions?",
+    "type": "invalid_request_error",
+    "param": "model",
+    "code": null
+  }
+}
+
+----------------------------------------------------------------------------------------------------------
+
+Request:
+
+
+curl https://api.openai.com/v1/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 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" \
+  -d '{
+    "model": "text-davinci-003",
+    "prompt": "How are you? What are the various responses one can give?",
+    "max_tokens": 7,
+    "temperature": 0
+  }'
+
+Response:
+
+{
+    "id": "cmpl-74ti8kIkI5RcVDJCTS78j3fM3Lj1j",
+    "object": "text_completion",
+    "created": 1681401820,
+    "model": "text-davinci-003",
+    "choices": [
+        {
+            "text": "\n\nOne can respond to the",
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "length"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 13,
+        "completion_tokens": 7,
+        "total_tokens": 20
+    }
+}
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------------------------
+
+/* About Temperature */
+
+
+temperature
+number
+Optional
+Defaults to 1
+What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+
+Request:
+
+
+  curl https://api.openai.com/v1/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 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" \
+  -d '{
+    "model": "text-davinci-003",
+    "prompt": "About Firewall",
+    "max_tokens": 100,
+    "temperature": 1,
+    "n": 2
+  }'
+
+
+  Response:
+
+  {
+    "id": "cmpl-74ttPlTw9uRzoi7UfrKGtJb2CGFKs",
+    "object": "text_completion",
+    "created": 1681402519,
+    "model": "text-davinci-003",
+    "choices": [
+        {
+            "text": "\n\nA firewall is a network security device that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It usually resides between a trusted network and an untrusted network, such as the internet. Firewalls often perform basic packet filtering, looking at source, destination, port and protocol information to decide which traffic is allowed through, and which traffic is blocked. Firewalls are typically the first line of defense in protecting a network from external threats.",
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "stop"
+        },
+        {
+            "text": "\n\nA firewall is a software or hardware system designed to protect a computer network from unauthorized access. Firewalls are typically configured to reject or deny access to certain types of data and/or traffic, based on either certain predefined security rules or access control lists (ACLs). Firewalls are often used to protect networks from malicious code, viruses, worms, and other unwanted network traffic. Firewalls can also be used to restrict access to specific computers and services, as well as",
+            "index": 1,
+            "logprobs": null,
+            "finish_reason": "length"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 3,
+        "completion_tokens": 194,
+        "total_tokens": 197
+    }
+}
+
+
+ 
+
+ Request:
+
+ curl https://api.openai.com/v1/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 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" \
+  -d '{
+    "model": "text-davinci-003",
+    "prompt": "About Firewall",
+    "max_tokens": 100,
+    "temperature": 0.2,
+    "n": 2
+  }'
+ 
+
+ Response:
+
+
+{
+    "id": "cmpl-74tuskrgze0xUptasqFCsKzFxExa9",
+    "object": "text_completion",
+    "created": 1681402610,
+    "model": "text-davinci-003",
+    "choices": [
+        {
+            "text": "\n\nA firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. Firewalls are often categorized as either network firewalls or host-based firewalls. Network firewalls filter traffic between two or more networks and run on network hardware. Host-based firewalls provide a layer of software on one host that controls network traffic in and out of that single machine. Firewalls are frequently used to prevent unauthorized access to a network",
+            "index": 0,
+            "logprobs": null,
+            "finish_reason": "length"
+        },
+        {
+            "text": "\n\nA firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. Firewalls are typically configured to reject access from unauthorized networks and to permit access to authorized networks. Firewalls can be implemented as hardware, software, or a combination of both.",
+            "index": 1,
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 3,
+        "completion_tokens": 161,
+        "total_tokens": 164
+    }
+}
